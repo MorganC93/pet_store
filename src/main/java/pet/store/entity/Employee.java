@@ -18,16 +18,13 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer employeeId;
+	private Long employeeId;
 	private String employeeFirstName;
 	private String employeeLastName;
-	private Integer employeePhone;
-	private String employeeJobTile;
+	private String employeePhone;
+	private String employeeJobTitle;
 	
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	@Embedded
-	private Long petStoreId;
+	
 
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
