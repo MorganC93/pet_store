@@ -1,7 +1,10 @@
 package pet.store.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import pet.store.controller.model.PetStoreData;
+import pet.store.controller.model.PetStoreEmployee;
 import pet.store.service.PetStoreService;
 
 @RestController
@@ -43,6 +47,25 @@ public class PetStoreController {
 		PetStoreData updatePetStore = petStoreService.savePetStore(petStoreData);
 
 		return updatePetStore;
+	}
+	
+	@DeleteMapping("/petStoreId {}")
+	public Map<String, String> deletePetStoreById(@PathVariable Long petStoreId) {
+		log.info("Deleting pet store with ID={}" + petStoreId);
+		
+		petStoreService.deletePetStoreById(petStoreId);
+		
+		return Map.of("message", " Deletion of pet store with ID=" 
+				+ petStoreId + " was successful."); 
+	}
+	
+	@PostMapping("/pet_store/{petStoreId}/employee")
+	@ResponseStatus(HttpStatus.CREATED) 
+	public PetStoreEmployee addEmployee(@PathVariable Long petStoreId,
+			@RequestBody PetStoreEmployee petStoreEmployee) {
+		log.info("Add employee to pet store with ID=" + petStoreId);
+		
+		return petStoreService.saveEmployee(petStoreId, petStoreEmployee); 
 	}
 
 }
